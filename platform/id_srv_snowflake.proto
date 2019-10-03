@@ -1,0 +1,14 @@
+syntax="proto3";
+package platform.id.srv.snowflake;
+
+option go_package = "platform/id/srv/snowflake";
+
+import "base/empty.proto";
+
+service SnowFlake {
+    rpc GetID(base.Empty) returns (GetIDRsp);
+}
+
+message GetIDRsp{
+    int64 ID = 1;
+}

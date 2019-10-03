@@ -1,0 +1,45 @@
+syntax="proto3";
+package platform.user.srv.info;
+
+option go_package = "platform/user/srv/info";
+
+import "base/base.proto";
+
+service UserInfo {
+    //查询用户信息
+    rpc GetUserInfo(GetUserInfoReq) returns(GetUserInfoRsp);
+    rpc CreateUser(CreateUserReq) returns(CreateUserRsp);
+    rpc UpdateUserInfo(UpdateUserInfoReq) returns (UpdateUserInfoRsp);
+}
+
+//获取用户信息请求参数
+message GetUserInfoReq{
+    int64 UserID = 1;//#UserId
+    repeated string Attrs = 2;//    # 属性名称  不带此参数，返回基础属性
+    int32 AppID = 3;//                    # 请求来源
+}
+
+message GetUserInfoRsp{
+    base.Rsp BaseRsp  = 1;// 返回值
+    bytes Data = 2; // 响应数据
+}
+
+message CreateUserReq{
+    int64 UserID =1;
+    string NickName = 2;
+    base.Gender Gender = 3;
+    string AvatarURL = 4;
+}
+
+message CreateUserRsp {
+    base.Rsp Rsp = 1;
+}
+
+message UpdateUserInfoReq {
+    string Attrs = 1;
+}
+
+message UpdateUserInfoRsp {
+    base.Rsp BaseRsp = 1;
+    bytes Data = 2;
+}

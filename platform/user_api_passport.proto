@@ -1,0 +1,157 @@
+syntax="proto3";
+package platform.user.api.passport;
+
+option go_package = "platform/user/api/passport";
+
+import "platform/user.proto";
+
+service Passport{
+    // 注册
+    rpc SignUp(SignUpReq) returns (SignUpRsp);
+
+    // 登陆
+    rpc MobileSignIn(MobileSignInReq) returns (MobileSignInRsp);
+//    rpc EmailSignIn(EmailSignInReq) returns (EmailSignInRsp);
+//    rpc UserNameSignIn(UserNameSignInReq) returns (UserNameSignInRsp);
+//    rpc TokenSignIn(TokenSignInReq) returns (TokenSignInRsp);
+//
+//    // 登出
+//    rpc SignOut(SignOutReq) returns (SignOutRsp);
+//
+//    // 修改/重置密码
+//    rpc ChangePassword(ChangePasswordReq) returns (ChangePasswordRsp);
+//    rpc ResetPassword(ResetPasswordReq) returns (ResetPasswordRsp);
+//
+//    // 绑定/解绑手机
+//    rpc BindMobile(BindMobileReq) returns (BindMobileRsp);
+//    rpc UnbindMobile(UnbindMobileReq) returns (UnbindMobileRsp);
+}
+
+enum Code {
+    Ok = 0;
+    Failed  = 1;
+}
+
+message BaseRsp {
+    Code code = 1;
+    string msg = 2;
+}
+
+message SignUpReq {
+    int64 DeviceID = 1;
+    string Name = 2;
+    string Mobile = 3;
+    string Email = 4;
+    string Password = 5;
+    string Code = 6;
+    user.ActiveType ActiveType = 7;
+    int32 AppID = 8;
+    string Version = 9;
+    string Nick = 11;
+    user.Gender Gender = 12;
+    string AvatarURL = 13;
+}
+
+message SignUpRsp {
+    int64 UserID = 1;
+    BaseRsp BaseRsp = 2;
+}
+
+message MobileSignInReq {
+    string Mobile = 1;
+    string Password = 2;
+    int32 AppID = 3;
+    string ExtraInfo = 4;
+}
+
+message MobileSignInRsp {
+    int64 UserID = 1;
+    BaseRsp BaseRsp = 2;
+}
+//
+//message EmailSignInReq {
+//    string Email = 1;
+//    string Password = 2;
+//    int32 AppID = 3;
+//    string ExtraInfo = 4;
+//}
+//message EmailSignInRsp {
+//    int64 UserID = 1;
+//    BaseRsp BaseRsp = 2;
+//}
+//
+//message UserNameSignInReq {
+//    string UserName = 1;
+//    string Password = 2;
+//    int32 AppID = 3;
+//    string ExtraInfo = 4;
+//}
+//
+//message UserNameSignInRsp {
+//    int64 UserID = 1;
+//    BaseRsp BaseRsp = 2;
+//}
+//
+//message TokenSignInReq {
+//    int64 DeviceID = 1;
+//    string Token = 2;
+//    string Mobile = 3;
+//    int32 AppID = 4;
+//    string ExtraInfo = 5;
+//}
+//
+//message TokenSignInRsp {
+//    int64 UserID = 1;
+//    BaseRsp BaseRsp = 2;
+//}
+//
+//message SignOutReq{
+//    int64 UserID = 1;
+//}
+//
+//message SignOutRsp{
+//    BaseRsp BaseRsp = 1;
+//}
+//
+//message ChangePasswordReq {
+//    int64 UserID = 1;
+//    int32 AppID = 2;
+//    string OldPassword = 3;
+//    string Password = 4;
+//    string ExtraInfo = 5;
+//}
+//
+//message ChangePasswordRsp {
+//    BaseRsp BaseRsp = 1;
+//}
+//
+//message ResetPasswordReq {
+//    int64 UserID = 1;
+//    int32 AppID = 2;
+//    string Mobile = 3;
+//    string Code = 4;
+//    string Password = 5;
+//    string ExtraInfo = 6;
+//}
+//
+//message ResetPasswordRsp {
+//    int64 UserID = 1;
+//    string Mobile = 2;
+//    BaseRsp BaseRsp = 3;
+//}
+//
+//message BindMobileReq {
+//
+//}
+//
+//message BindMobileRsp {
+//
+//}
+//
+//message UnbindMobileReq {
+//
+//}
+//
+//message UnbindMobileRsp {
+//
+//}

@@ -1,0 +1,35 @@
+syntax="proto3";
+package base;
+
+option go_package = "base";
+
+// 50 以内为保留产品
+enum Product {
+    ProductUnknown = 0;
+    ProductPlatform = 1;
+    ProductDayan = 51;
+};
+
+// 产品线 8位 子系统 8位 模块8位 8
+enum CODE {
+    SUCCEED = 0;
+    FAILED = 1;
+    ENCODE_FAILED = 2;
+    DECODE_FAILED = 3;
+    SERVICE_EXCEPTION = 4; //服务异常
+}
+
+message Void {}
+
+enum Gender {
+    GenderUnknown = 0;
+    GenderProductMale = 1;
+    GenderFemale = 2;
+}
+
+enum ActiveType {
+    ActiveTypeEmail = 0;
+    ActiveTypeSMSCode = 1;
+}
+
+
