@@ -1,0 +1,23 @@
+syntax="proto3";
+package platform.im.comet;
+
+option go_package = "platform/im/comet";
+
+
+import "platform/im_common.proto";
+
+
+
+service comet{
+   // rpc PushMsg()
+}
+
+
+message PushMsgReq{
+    platform.im.Msg msg = 1;
+}
+
+message PushMsgResp{
+    int32    code = 1;
+}
+

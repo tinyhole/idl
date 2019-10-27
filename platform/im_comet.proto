@@ -1,0 +1,32 @@
+syntax="proto3";
+package platform.im.comet;
+
+option go_package = "platform/im/comet";
+
+
+enum CmdType {
+    CmdTypeUnknown    = 0;
+    CmdTypeKeepLive   = 1;
+    CmdTypePushMsg    = 2;
+    CmdTypePullMsg    = 3;
+    CmdTypeAck        = 4;
+    CmdTypeSignUp         = 5;
+}
+
+
+
+/*
+|------head----|----------------body--------------|
+1. head : 4 字节body 长度， 4 字节meta data 长度
+2. body 由 元数据(meta data) 和数据两部分组成
+*/
+
+
+message Meta {
+    int64           seq         = 1; //消息序号
+    bytes           authData    = 2; //认证token
+    CmdType         cmd         = 3;
+}
+
+
+
