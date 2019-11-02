@@ -2,3 +2,35 @@ syntax="proto3";
 package mua.im.logic;
 
 option go_package = "mua/im/logic";
+
+service Logic {
+    rpc PushMsg(PushMsgReq) returns (PushMsgRsp);
+
+    rpc SignIn(SignInReq) returns (SignInRsp);
+
+    rpc Ping(PingReq) returns (PingRsp);
+}
+
+message PushMsgReq {
+
+}
+
+message PushMsgRsp{
+
+}
+
+message SignInReq {
+    int64 uid = 1;
+    string token = 2;
+}
+
+message SignInRsp {
+    int32 code = 1;
+}
+
+message PingReq {
+    int64 uid = 1;
+}
+
+message PingRsp {
+}

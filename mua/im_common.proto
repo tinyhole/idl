@@ -1,5 +1,5 @@
 syntax="proto3";
-package platform.im;
+package mua.im;
 
 option go_package = "platform/im";
 
