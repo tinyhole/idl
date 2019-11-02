@@ -12,7 +12,7 @@ service comet{
 
 
 message PushMsgReq{
-    platform.im.Msg msg = 1;
+    mua.im.Msg msg = 1;
 }
 
 message PushMsgResp{
