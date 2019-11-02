@@ -1,0 +1,4 @@
+syntax="proto3";
+package mua.im.logic;
+
+option go_package = "mua/im/logic";

@@ -1,4 +1,0 @@
-syntax="proto3";
-package platform.im.logic;
-
-option go_package = "platform/im/logic";

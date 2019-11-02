@@ -4,13 +4,13 @@ package platform.im.comet;
 option go_package = "platform/im/comet";
 
 
-enum CmdType {
-    CmdTypeUnknown    = 0;
-    CmdTypeKeepLive   = 1;
-    CmdTypePushMsg    = 2;
-    CmdTypePullMsg    = 3;
-    CmdTypeAck        = 4;
-    CmdTypeSignUp         = 5;
+enum Cmd {
+    CmdUnknown    = 0;
+    CmdKeepLive   = 1;
+    CmdPushMsg    = 2;
+    CmdPullMsg    = 3;
+    CmdAck        = 4;
+    CmdAuth       = 5;
 }
 
 
@@ -21,12 +21,12 @@ enum CmdType {
 2. body 由 元数据(meta data) 和数据两部分组成
 */
 
-
-message Meta {
+message Head {
     int64           seq         = 1; //消息序号
-    bytes           authData    = 2; //认证token
-    CmdType         cmd         = 3;
+    Cmd             cmd         = 2;
 }
+
+
 
 
 

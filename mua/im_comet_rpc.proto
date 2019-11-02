@@ -1,15 +1,13 @@
 syntax="proto3";
-package platform.im.comet;
+package mua.im.comet;
 
-option go_package = "platform/im/comet";
-
-
-import "platform/im_common.proto";
+option go_package = "mua/im/comet";
 
 
+import "mua/im_common.proto";
 
 service comet{
-   // rpc PushMsg()
+   rpc PushMsg(PushMsgReq) returns (PushMsgResp);
 }
 
 
