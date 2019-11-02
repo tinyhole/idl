@@ -1,7 +1,7 @@
 syntax="proto3";
-package platform.im;
+package mua.im;
 
-option go_package = "platform/im";
+option go_package = "mua/im";
 
 enum MsgType {
     MsgTypeUnknown = 0;

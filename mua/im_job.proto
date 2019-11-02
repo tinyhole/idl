@@ -1,4 +1,4 @@
 syntax="proto3";
-package platform.im.job;
+package mua.im.job;
 
-option go_package = "platform/im/job";
+option go_package = "mua/im/job";
