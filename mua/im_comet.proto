@@ -4,12 +4,14 @@ package mua.im.comet;
 option go_package = "mua/im/comet";
 
 
+import "mua/im_common.proto";
+
 enum Cmd {
     CmdUnknown    = 0;
     CmdKeepLive   = 1;
-    CmdPushMsg    = 2;
+    CmdSendMsg    = 2;
     CmdPullMsg    = 3;
-    CmdAck        = 4;
+    //CmdAck        = 4;
     CmdAuth       = 5;
 }
 
@@ -30,6 +32,38 @@ message Head {
 }
 
 
+message AuthReq{
+    int64               UserID     = 1;
+    mua.im.DeviceType   deviceType = 2;
+    string              token      = 3;
+}
+
+message AuthResp{
+    int32              code        = 1;
+}
+
+message SendMsgReq{
+    mua.im.Msg         msg         = 1;    
+}
+
+message SendMsgResp{
+    int32              code        = 1;
+}
 
 
+message PullMsgReq{
+    int64            syncSeq      = 1;
+}
 
+message PullMsgResp{
+    int32                   code        = 1;
+    repeated  mua.im.Msg    msgs        = 2;
+}
+
+message KeepaliveReq {
+    int64                  UserID = 1;
+}
+
+message KeepaliveResp{
+    int32                  code        = 1;
+}
