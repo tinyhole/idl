@@ -1,0 +1,143 @@
+syntax="proto3";
+package mua.im.relation;
+
+option go_package = "mua/im/relation";
+
+service Logic {
+    rpc Follow(FollowReq) returns (FollowRsp);
+
+    rpc ListFollower(ListFollowerReq) returns (ListFollowerRsp);
+
+    rpc Unfollow(UnfollowReq) returns (UnfollowRsp);
+
+    rpc Friend(FriendReq) returns (FriendRsp);
+
+    rpc ListFriend(ListFriendReq) returns (ListFriendRsp);
+
+    rpc Unfriend(UnfriendReq) returns (UnfriendRsp);
+
+    rpc JoinGroup(JoinGroupReq) returns (JoinGroupRsp);
+
+    rpc QuitGroup(QuitGroupReq) returns (QuitGroupRsp);
+}
+
+enum GroupType{
+    GroupTypeUnknown        = 0;
+    Temporary      = 1;//临时
+    General        = 2;//普通
+    Super          = 3;//超级
+}
+
+message Group{
+    int64           ID          = 1; //群组ID
+    string          name        = 2; //群名称
+    string          notice      = 3; //群公告
+    int64           createdAt   = 4;
+}
+
+
+//个人关系
+message PersonalRelation{
+    string ID               = 1; //关系实例ID
+    int64  srcUID           = 2; //关系主UID
+    int64  dstUID           = 3; //目标uid
+    int32  followFlag       = 4; //关注标识
+    int32  friendFlag       = 5;// 好友标识
+    int32  blockFlag        = 6; // 拉黑标识
+    string remark           = 7; //备注名称
+    repeated string tag     = 8; //标签
+    string  desc            = 9; //描述
+    int64  followAt         = 10;
+    int64  friendAt         = 11;
+
+}
+
+//群组关系类型
+enum GroupRoleType {
+    GroupRoleTypeUnknow = 0;
+    GeneralMember       = 1; //普通成员
+    Owner               = 2; //所有者
+    Manager             = 3; //管理员
+}
+
+//群组关系
+message GroupRelation{
+    string          ID               = 1; //关系实例ID
+    int64           srcUID           = 2; //
+    int64           groupID          = 3; //
+    int64           joinAt           = 4; //加入时间
+    GroupRoleType   role             = 5; //角色
+}
+
+message FollowReq{
+    int64 srcUID = 1; //关注者
+    int64 dstUID = 2; //被关注者
+}
+
+message FollowRsp{
+    int32  code = 1;
+}
+
+message UnfollowReq{
+    int64 srcUID = 1; //关注者
+    int64 dstUID = 2; //被关注者
+}
+
+message UnfollowRsp{
+    int32 code = 1;
+}
+
+message FriendReq{
+    int64 srcUID = 1;// 申请者
+    int64 dstUID = 2; //目标好友
+}
+
+message FriendRsp{
+    int32 code = 1;
+}
+
+message UnfriendReq{
+    int64 srcUID = 1; //申请者
+    int64 dstUID = 2; //目标者
+}
+
+message UnfriendRsp{
+    int32 code = 1;
+}
+
+message ListFollowerReq{
+    int64  UID = 1;
+}
+
+message ListFollowerRsp{
+    
+}
+
+message ListFriendReq{
+    int64 UID           = 1;
+    int32 page          = 2;
+    int32 pageSize      =3; //
+}
+
+message ListFriendRsp{
+    int32               code        = 1;
+    PersonalRelation    firends     = 2;
+    int32               total       = 3;
+}
+
+message JoinGroupReq{
+    int64  UID           = 1;
+    int64  groupID       = 2;
+}
+
+message JoinGroupRsp{
+    int32 code = 1; 
+}
+
+message QuitGroupReq{
+    int64 UID            = 1;
+}
+
+message QuitGroupRsp{
+    int32 code = 1;
+}

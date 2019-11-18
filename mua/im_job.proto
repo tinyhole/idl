@@ -2,3 +2,25 @@ syntax="proto3";
 package mua.im.job;
 
 option go_package = "mua/im/job";
+
+import "mua/im_common.proto";
+
+service Job {
+    rpc PullMsg(PullMsgReq) returns (PullMsgResp);
+}
+
+message PullMsgReq{
+    int64    inboxID              = 1;
+    int64    seq                  = 2;
+
+}
+
+
+message PullMsgResp{
+    int32                           code = 1;
+    repeated mua.im.Msg             msg  = 2;
+}
+
+message notifySyncMsg{
+    int64       inboxID              = 1; //收件箱ID
+}

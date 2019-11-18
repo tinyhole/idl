@@ -15,12 +15,13 @@ enum MsgType {
 }
 
 
-enum DeviceType {
-    DeviceTypeUnknown = 0;
-    DeviceTypePhone   = 1;
-    DeviceTypePad     = 2;
-    DeviceTypePC      = 3;
+enum ChatType {
+    ChatypeUnknown = 0;
+    ChatTypePrivte  = 1; //单聊
+    ChatTypeGroup   = 2; //群聊
 }
+
+
 
 message Msg {
     string      msgID           = 1;
@@ -30,4 +31,8 @@ message Msg {
     int64       seq             = 5;
     int64       time            = 6;
     string      content         = 7;
+    ChatType    chatType        = 8;
 }
+
+
+ 
