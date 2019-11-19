@@ -3,7 +3,7 @@ package mua.im.relation;
 
 option go_package = "mua/im/relation";
 
-service Logic {
+service Relation {
     rpc Follow(FollowReq) returns (FollowRsp);
 
     rpc ListFollower(ListFollowerReq) returns (ListFollowerRsp);
@@ -47,8 +47,9 @@ message PersonalRelation{
     string remark           = 7; //备注名称
     repeated string tag     = 8; //标签
     string  desc            = 9; //描述
-    int64  followAt         = 10;
-    int64  friendAt         = 11;
+    int64  followAt         = 10; //关注时间
+    int64  friendAt         = 11; 
+    int64  blockAt          = 12;
 
 }
 
