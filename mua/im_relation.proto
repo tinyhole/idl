@@ -6,15 +6,23 @@ option go_package = "mua/im/relation";
 service Relation {
     rpc Follow(FollowReq) returns (FollowRsp);
 
-    rpc ListFollower(ListFollowerReq) returns (ListFollowerRsp);
-
     rpc Unfollow(UnfollowReq) returns (UnfollowRsp);
+ 
+    rpc Block(BlockReq) returns (BlockRsp);
 
-    rpc Friend(FriendReq) returns (FriendRsp);
+    rpc Unblock(UnblockReq) returns (UnblockRsp);
 
-    rpc ListFriend(ListFriendReq) returns (ListFriendRsp);
+    rpc GetPersonalRelation(GetPersonalRelationReq) returns (GetPersonalRelationRsp);
 
-    rpc Unfriend(UnfriendReq) returns (UnfriendRsp);
+    rpc ListPersonalRelation(ListPersonalRelationReq) returns (ListPersonalRelationRsp);
+
+    rpc CreateGroup(CreateGroupReq) returns (CreateGroupRsp);
+
+    rpc GetGroup(GetGroupReq) returns (GetGroupRsp);
+
+    rpc ChangeGroupInfo(ChangeGroupInfoReq) returns (ChangeGroupInfoRsp);
+
+    rpc UpgradeGroup(UpgradeGroupReq) returns (UpgradeGroupRsp);
 
     rpc JoinGroup(JoinGroupReq) returns (JoinGroupRsp);
 
@@ -23,9 +31,9 @@ service Relation {
 
 enum GroupType{
     GroupTypeUnknown        = 0;
-    Temporary      = 1;//临时
-    General        = 2;//普通
-    Super          = 3;//超级
+    Temporary               = 1;//临时
+    General                 = 2;//普通
+    Super                   = 3;//超级
 }
 
 message Group{
@@ -33,25 +41,32 @@ message Group{
     string          name        = 2; //群名称
     string          notice      = 3; //群公告
     int64           createdAt   = 4;
+    GroupType       type        = 5; //群类型
 }
 
 
+
+/*
+srcUID follow dstUID
+srcUID 与 dstUID 相互为好友
+srcUID 拉黑了 dstUID 
+*/
 //个人关系
 message PersonalRelation{
-    string ID               = 1; //关系实例ID
+    //string ID               = 1; //关系实例ID
     int64  srcUID           = 2; //关系主UID
     int64  dstUID           = 3; //目标uid
-    int32  followFlag       = 4; //关注标识
-    int32  friendFlag       = 5;// 好友标识
-    int32  blockFlag        = 6; // 拉黑标识
+    bool   isFollow         = 4; //关注标识
+    bool  isFriend         = 5;// 好友标识
+    bool  isBlock          = 6; // 拉黑标识
     string remark           = 7; //备注名称
     repeated string tag     = 8; //标签
     string  desc            = 9; //描述
-    int64  followAt         = 10; //关注时间
-    int64  friendAt         = 11; 
-    int64  blockAt          = 12;
-
+    int64   followAt        = 10; //关注时间
+    int64   friendAt        = 11; 
+    int64   blockAt         = 12;
 }
+
 
 //群组关系类型
 enum GroupRoleType {
@@ -63,7 +78,7 @@ enum GroupRoleType {
 
 //群组关系
 message GroupRelation{
-    string          ID               = 1; //关系实例ID
+    //string          ID               = 1; //关系实例ID
     int64           srcUID           = 2; //
     int64           groupID          = 3; //
     int64           joinAt           = 4; //加入时间
@@ -76,7 +91,7 @@ message FollowReq{
 }
 
 message FollowRsp{
-    int32  code = 1;
+    //int32  code = 1;
 }
 
 message UnfollowReq{
@@ -85,44 +100,54 @@ message UnfollowReq{
 }
 
 message UnfollowRsp{
-    int32 code = 1;
+    //int32 code = 1;
 }
 
-message FriendReq{
+message BlockReq{
     int64 srcUID = 1;// 申请者
     int64 dstUID = 2; //目标好友
 }
 
-message FriendRsp{
-    int32 code = 1;
+message BlockRsp{
+   // int32 code = 1;
 }
 
-message UnfriendReq{
+message UnblockReq{
     int64 srcUID = 1; //申请者
     int64 dstUID = 2; //目标者
 }
 
-message UnfriendRsp{
-    int32 code = 1;
+message UnblockRsp{
+    //int32 code = 1;
 }
 
-message ListFollowerReq{
-    int64  UID = 1;
+message GetPersonalRelationReq{
+    int64 srcUID = 1; //
+    int64 dstUID = 2; //
 }
 
-message ListFollowerRsp{
-    
+message GetPersonalRelationRsp{
+    int32                   code            = 1;
+    PersonalRelation        info            = 2;
 }
 
-message ListFriendReq{
-    int64 UID           = 1;
-    int32 page          = 2;
-    int32 pageSize      =3; //
+enum PersonalRelationType {
+    PersonalRelationTypeUnknown = 0;
+    Followed  = 1; //
+    Friended  = 2; //
+    Blocked   = 3;
 }
 
-message ListFriendRsp{
+message ListPersonalRelationReq{
+    int64                       UID                   = 1;
+    PersonalRelationType        type                  = 2;
+    int32                       page                  = 3;
+    int32                       pageSize              = 4; //
+}
+
+message ListPersonalRelationRsp{
     int32               code        = 1;
-    PersonalRelation    firends     = 2;
+    repeated PersonalRelation    infos     = 2;
     int32               total       = 3;
 }
 
@@ -136,9 +161,50 @@ message JoinGroupRsp{
 }
 
 message QuitGroupReq{
-    int64 UID            = 1;
+    int64 UID                       = 1;
+    int64 groupID                   = 2;
 }
 
 message QuitGroupRsp{
+    //int32 code = 1;
+}
+
+message CreateGroupReq{
+    int64 srcUID     = 1; //
+    string groupName = 2; //
+}
+
+message CreateGroupRsp{
     int32 code = 1;
+    Group info = 2;
+}
+
+
+message ChangeGroupInfoReq{
+    int64  uid = 1;
+    Group  info =2;
+}
+
+message ChangeGroupInfoRsp{
+    int32 code          = 1;
+    Group info          = 2;
+}
+
+message UpgradeGroupReq{
+    int64           groupID         = 1;
+    GroupType       type            = 2;
+    int64           uid             = 3;
+}
+
+message UpgradeGroupRsp {
+    int32   code    = 1;
+    Group   info    = 2;
+}
+
+message GetGroupReq{
+    int64   groupID = 1;
+}
+
+message GetGroupRsp{
+    Group   info = 1;
 }
