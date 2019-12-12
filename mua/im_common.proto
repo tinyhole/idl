@@ -3,22 +3,22 @@ package mua.im;
 
 option go_package = "mua/im";
 
-enum MsgType {
-    MsgTypeUnknown = 0;
-    MsgTypeText = 1;
-    MsgTypeImg = 2;
-    MsgTypeVideo = 3;
-    MsgTypeAudio = 4;
-    MsgTypeLink = 5; //外链
-    MsgTypeSite = 6; //站内
-    MsgTypeMicroApp = 7;//小程序
+enum ContentType {
+    ContentTypeUnknown = 0;
+    ContentTypeText = 1;
+    ContentTypeImg = 2;
+    ContentTypeVideo = 3;
+    ContentTypeAudio = 4;
+    ContentTypeLink = 5; //外链
+    ContentTypeSite = 6; //站内
+    ContentTypeMicroApp = 7;//小程序
 }
 
 
-enum ChatType {
-    ChatypeUnknown = 0;
-    ChatTypePrivte  = 1; //单聊
-    ChatTypeGroup   = 2; //群聊
+enum MsgType {
+    MsgypeUnknown = 0;
+    MsgTypePrivte  = 1; //单聊
+    MsgTypeGroup   = 2; //群聊
 }
 
 
@@ -27,12 +27,15 @@ message Msg {
     string      msgID           = 1;
     int64       srcID           = 2; //发送者ID 
     int64       dstID           = 3; //接收者ID 接收者可以是群或者个人
-    MsgType     msgType         = 4;
+    ContentType contentType     = 4;
     int64       seq             = 5;
     int64       time            = 6;
     string      content         = 7;
-    ChatType    chatType        = 8;
+    MsgType     MsgType         = 8;
+    int64       inboxID         = 10;
 }
+
+
 
 
  

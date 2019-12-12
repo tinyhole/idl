@@ -1,0 +1,30 @@
+syntax="proto3";
+package mua.im.ap;
+
+option go_package = "mua/im/ap";
+
+
+service AP {
+    rpc Unicast(UnicastReq) returns (UnicastRsp);
+    rpc Broadcast(BroadcastReq) returns (BroadcastRsp);
+}
+
+
+message UnicastReq{
+    int64           fid         = 1;
+    string          srvName     = 2;
+    string          endpoint    = 3;
+    bytes           data        = 4;
+}
+
+message UnicastRsp{}
+
+
+message BroadcastReq{
+    repeated int64           fids     = 1;
+    string                   srvName  = 2;
+    string                   endpoint = 3;
+    bytes                    data     = 4;
+}
+
+message BroadcastRsp{}

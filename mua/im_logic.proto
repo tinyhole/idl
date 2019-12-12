@@ -3,15 +3,22 @@ package mua.im.logic;
 
 option go_package = "mua/im/logic";
 
+import "mua/im_common.proto";
+
 service Logic {
     rpc PushMsg(PushMsgReq) returns (PushMsgRsp);
 
     rpc SignIn(SignInReq) returns (SignInRsp);
 
     rpc Ping(PingReq) returns (PingRsp);
+
+    rpc ListSessionInfo(ListSessionInfoReq) returns (ListSessionInfoRsp);
+
+    rpc BatchListSessionInfo(BatchListSessionInfoReq) returns (BatchListSessionInfoRsp);
 }
 
 message PushMsgReq {
+    mua.im.Msg msg = 1;
 
 }
 
@@ -20,17 +27,49 @@ message PushMsgRsp{
 }
 
 message SignInReq {
-    int64 uid = 1;
-    string token = 2;
+    int64   uid = 1;
+    string  token = 2;
+    int32   apID = 3;
+    int64   apFid = 4;
+    string  remoteIP = 5;
+    int32   deviceType = 6;
+    string  srvName = 7;
 }
 
 message SignInRsp {
-    int32 code = 1;
+    
 }
 
 message PingReq {
     int64 uid = 1;
+    int32 apID = 2;
+    int64 apFid = 3;
 }
 
-message PingRsp {
+message PingRsp {}
+
+message SessionInfo {
+    int64 uid = 1;
+    int64 fid = 2;
+    string apName = 3;
+    int32 apID = 4;
+    int32 deviceType = 5;
+}
+
+message ListSessionInfoReq{
+    int64 uid = 1;
+}
+
+
+message ListSessionInfoRsp{
+    repeated SessionInfo  infos = 1;
+}
+
+
+message BatchListSessionInfoReq{
+    repeated int64 uids = 1;
+}
+
+message BatchListSessionInfoRsp{
+    repeated SessionInfo infos = 1;
 }

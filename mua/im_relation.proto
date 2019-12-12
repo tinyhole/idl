@@ -90,36 +90,28 @@ message FollowReq{
     int64 dstUID = 2; //被关注者
 }
 
-message FollowRsp{
-    //int32  code = 1;
-}
+message FollowRsp{}
 
 message UnfollowReq{
     int64 srcUID = 1; //关注者
     int64 dstUID = 2; //被关注者
 }
 
-message UnfollowRsp{
-    //int32 code = 1;
-}
+message UnfollowRsp{}
 
 message BlockReq{
     int64 srcUID = 1;// 申请者
     int64 dstUID = 2; //目标好友
 }
 
-message BlockRsp{
-   // int32 code = 1;
-}
+message BlockRsp{}
 
 message UnblockReq{
     int64 srcUID = 1; //申请者
     int64 dstUID = 2; //目标者
 }
 
-message UnblockRsp{
-    //int32 code = 1;
-}
+message UnblockRsp{}
 
 message GetPersonalRelationReq{
     int64 srcUID = 1; //
@@ -127,8 +119,7 @@ message GetPersonalRelationReq{
 }
 
 message GetPersonalRelationRsp{
-    int32                   code            = 1;
-    PersonalRelation        info            = 2;
+    PersonalRelation        info            = 1;
 }
 
 enum PersonalRelationType {
@@ -146,9 +137,8 @@ message ListPersonalRelationReq{
 }
 
 message ListPersonalRelationRsp{
-    int32               code        = 1;
-    repeated PersonalRelation    infos     = 2;
-    int32               total       = 3;
+    repeated PersonalRelation    infos     = 1;
+    int32               total       = 2;
 }
 
 message JoinGroupReq{
@@ -165,9 +155,7 @@ message QuitGroupReq{
     int64 groupID                   = 2;
 }
 
-message QuitGroupRsp{
-    //int32 code = 1;
-}
+message QuitGroupRsp{}
 
 message CreateGroupReq{
     int64 srcUID     = 1; //
@@ -175,8 +163,7 @@ message CreateGroupReq{
 }
 
 message CreateGroupRsp{
-    int32 code = 1;
-    Group info = 2;
+    Group info = 1;
 }
 
 
@@ -186,8 +173,7 @@ message ChangeGroupInfoReq{
 }
 
 message ChangeGroupInfoRsp{
-    int32 code          = 1;
-    Group info          = 2;
+    Group info          = 1;
 }
 
 message UpgradeGroupReq{
@@ -197,8 +183,7 @@ message UpgradeGroupReq{
 }
 
 message UpgradeGroupRsp {
-    int32   code    = 1;
-    Group   info    = 2;
+    Group   info    = 1;
 }
 
 message GetGroupReq{

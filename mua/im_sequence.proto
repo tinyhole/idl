@@ -1,0 +1,19 @@
+syntax="proto3";
+package mua.im.sequence;
+
+option go_package = "mua/im/sequence";
+
+
+
+service Sequence {
+    rpc GetAutoIncrID(GetAutoIncrIDReq) returns (GetAutoIncrIDRsp);
+}
+
+message GetAutoIncrIDReq {
+    string     key = 1;
+}
+
+
+message GetAutoIncrIDRsp{
+    int64      id = 1;
+}
