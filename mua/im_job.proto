@@ -14,7 +14,7 @@ service Job {
 }
 
 message PullMsgReq{
-    int64    inboxID              = 1;
+    string    inboxID              = 1;
     int64    seq                  = 2;
 }
 
@@ -44,6 +44,6 @@ message syncPublicInboxMsgRsp{
 }
 
 message MsgNotify{
-    int64       inboxID              = 1; //收件箱ID
+    string       inboxID              = 1; //收件箱ID
     int64       seq                  = 2; //
 }

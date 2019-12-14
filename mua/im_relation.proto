@@ -20,6 +20,8 @@ service Relation {
 
     rpc GetGroup(GetGroupReq) returns (GetGroupRsp);
 
+    rpc ListGroupMemberID(ListGroupMemberIDReq)returns (ListGroupMemberIDRsp);
+
     rpc ChangeGroupInfo(ChangeGroupInfoReq) returns (ChangeGroupInfoRsp);
 
     rpc UpgradeGroup(UpgradeGroupReq) returns (UpgradeGroupRsp);
@@ -192,4 +194,15 @@ message GetGroupReq{
 
 message GetGroupRsp{
     Group   info = 1;
+}
+
+message ListGroupMemberIDReq{
+    int64   groupID     = 1;
+    int32   page        = 2;
+    int32   pageSize    = 3;
+}
+
+message ListGroupMemberIDRsp{
+    repeated  int64 uid     =1;
+    int32           total   =2;
 }
