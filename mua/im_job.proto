@@ -8,9 +8,11 @@ import "mua/im_common.proto";
 service Job {
     rpc PullMsg(PullMsgReq) returns (PullMsgRsp);
 
-    rpc SyncPrivateInboxMsg(SyncPrivateInboxMsgReq) returns (SyncPrivateInboxMsgRsp);
+    //rpc SyncPrivateInboxMsg(SyncPrivateInboxMsgReq) returns (SyncPrivateInboxMsgRsp);
 
-    rpc SyncPublicInboxMsg(SyncPublicInboxMsgReq) returns (syncPublicInboxMsgRsp);
+    //rpc SyncPublicInboxMsg(SyncPublicInboxMsgReq) returns (syncPublicInboxMsgRsp);
+
+    rpc SyncInboxMsg(SyncInboxMsgReq) returns (syncInboxMsgRsp);
 }
 
 message PullMsgReq{
@@ -45,5 +47,17 @@ message syncPublicInboxMsgRsp{
 
 message MsgNotify{
     string       inboxID              = 1; //收件箱ID
-    int64       seq                  = 2; //
+    int64        seq                  = 2; //
+}
+
+message SyncInboxMsgReq{
+    string inboxID = 1;
+    int64  seq     =  2;
+    int32  page     = 3;
+    int32  pageSize = 4;
+}
+
+message syncInboxMsgRsp{
+    repeated mua.im.Msg   msg   = 1;
+    int32 total = 2;
 }
